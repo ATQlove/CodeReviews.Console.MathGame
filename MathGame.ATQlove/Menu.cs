@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MathGame.ATQlove;
+﻿namespace MathGame.ATQlove;
 
 internal class Menu
 {
     GameEngine engine = new();
     
-    internal void showMenu(string name, DateTime date)
+    internal void ShowMenu(string name, DateTime date)
     {
         Console.Clear();
         Console.WriteLine($"Hello {name}. It's {date}. This is your math's game.");

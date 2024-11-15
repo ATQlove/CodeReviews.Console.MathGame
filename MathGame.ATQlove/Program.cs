@@ -1,6 +1,5 @@
 ﻿// Program.cs
 using MathGame.ATQlove;
-using System.Web;
 
 class Program
 {
@@ -9,7 +8,6 @@ class Program
         var menu = new Menu();
         var date = DateTime.UtcNow;
         string name = Utilities.GetName();
-        menu.showMenu(name, date);
-        //Console.WriteLine("Hello, World!");
+        menu.ShowMenu(name, date);
     }
 }
