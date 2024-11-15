@@ -1,4 +1,5 @@
-﻿using MathGame.ATQlove.Model;
+﻿
+using MathGame.ATQlove.Model;
 
 namespace MathGame.ATQlove;
 
