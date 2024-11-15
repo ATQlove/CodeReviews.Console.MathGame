@@ -8,207 +8,62 @@ using MathGame.Model;
 
 namespace MathGame;
 
+public enum MathOperation
+{
+    Addition,
+    Subtraction,
+    Multiplication,
+    Division
+}
+
 internal class GameEngine
 {
-    internal void Addition(string message)
+    internal void PlayGame(MathOperation operation, string message)
     {
         Random random = new Random();
         int score = 0;
-
         int firstNumber;
         int secondNumber;
 
-        DateTime startTime = DateTime.Now;                
+        DateTime startTime = DateTime.Now;
 
-        for (int i = 0; i<5; i++)
+        for (int i = 0; i < 5; i++)
         {
             Console.Clear();
             Console.WriteLine(message);
 
-            if(Utilities.difficulty == 1)
+            if (operation == MathOperation.Division)
             {
-                firstNumber = random.Next(1, 9);
-                secondNumber = random.Next(1, 9);
-            }
-            else if(Utilities.difficulty == 2)
-            {
-                firstNumber = random.Next(11, 49);
-                secondNumber = random.Next(11, 49);
+                int[] divisionNumbers = Utilities.GetDivisionNumbers();
+                firstNumber = divisionNumbers[0];
+                secondNumber = divisionNumbers[1];
             }
             else
             {
-                firstNumber = random.Next(11,99);
-                secondNumber=random.Next(11,99);
+                if (Utilities.difficulty == 1)
+                {
+                    firstNumber = random.Next(1, 9);
+                    secondNumber = random.Next(1, 9);
+                }
+                else if (Utilities.difficulty == 2)
+                {
+                    firstNumber = random.Next(11, 49);
+                    secondNumber = random.Next(11, 49);
+                }
+                else
+                {
+                    firstNumber = random.Next(11, 99);
+                    secondNumber = random.Next(11, 99);
+                }
             }
 
-            Console.WriteLine($"{firstNumber} + {secondNumber}");
+            string question = GenerateQuestion(operation, firstNumber, secondNumber);
+            Console.WriteLine(question);
 
             string res = Console.ReadLine();
             res = Utilities.ValidateResult(res);
 
-            if(int.Parse(res) == firstNumber + secondNumber)
-            {
-                Console.WriteLine("Correct! Type any key for the next quesiton");
-                score++;
-                Console.ReadLine();
-            }
-            else
-            {
-                Console.WriteLine("Incorrect >^< ! Type any key for the next quesiton");
-                Console.ReadLine();
-            }
-
-            if(i == 4)
-            {
-                DateTime endTime = DateTime.Now;
-                TimeSpan duration = endTime - startTime;
-                Console.WriteLine($"Game over. You spend {duration.TotalSeconds} senconds to finish those questions.\n Your final score is {score}. Press any Key to go back to the menu.");
-                Console.ReadLine();
-            }
-        }
-
-        Utilities.AddToHistory(score, GameType.Addition);
-    }
-
-    internal void Subtraction(string message)
-    {
-        Random random = new Random();
-        int score = 0;
-
-        int firstNumber;
-        int secondNumber;
-
-        DateTime startTime = DateTime.Now;
-
-        for (int i = 0; i<5;i++)
-        {
-            Console.Clear();
-            Console.WriteLine(message);
-
-            if (Utilities.difficulty == 1)
-            {
-                firstNumber = random.Next(1, 9);
-                secondNumber = random.Next(1, 9);
-            }
-            else if (Utilities.difficulty == 2)
-            {
-                firstNumber = random.Next(11, 49);
-                secondNumber = random.Next(11, 49);
-            }
-            else
-            {
-                firstNumber = random.Next(11, 99);
-                secondNumber = random.Next(11, 99);
-            }
-
-            Console.WriteLine($"{firstNumber} - {secondNumber}");
-
-            var res = Console.ReadLine();
-            res = Utilities.ValidateResult(res);
-
-            if(int.Parse(res)==firstNumber - secondNumber)
-            {
-                Console.WriteLine("Correct! Type any key for the next question");
-                score++; 
-                Console.ReadLine();
-            }
-            else
-            {
-                Console.WriteLine("Incorrect >^< ! Type any key for the next quesiton");
-                Console.ReadLine();
-            }
-
-            if (i == 4)
-            {
-                DateTime endTime = DateTime.Now;
-                TimeSpan duration = endTime - startTime;
-                Console.WriteLine($"Game over. You spend {duration.TotalSeconds} senconds to finish those questions.\n Your final score is {score}. Press any Key to go back to the menu.");
-                Console.ReadLine();
-            }
-        }
-
-        Utilities.AddToHistory(score, GameType.Addition);
-    }
-
-    internal void Multiplication(string message)
-    {
-        Random random = new Random();
-        int score = 0;
-
-        int firstNumber;
-        int secondNumber;
-
-        DateTime startTime = DateTime.Now;
-
-        for (int i = 0; i<5; i++)
-        {
-            Console.Clear();
-            Console.WriteLine(message);
-
-            if (Utilities.difficulty == 1)
-            {
-                firstNumber = random.Next(1, 9);
-                secondNumber = random.Next(1, 9);
-            }
-            else if (Utilities.difficulty == 2)
-            {
-                firstNumber = random.Next(11, 49);
-                secondNumber = random.Next(11, 49);
-            }
-            else
-            {
-                firstNumber = random.Next(11, 99);
-                secondNumber = random.Next(11, 99);
-            }
-
-            Console.WriteLine($"{firstNumber} * {secondNumber}");
-
-            var res = Console.ReadLine();
-            res = Utilities.ValidateResult(res);
-
-            if( int.Parse(res)==firstNumber * secondNumber) 
-            { 
-                Console.WriteLine("Correct! Type any key for the next question");
-                score++; 
-                Console.ReadLine();
-            }
-            else
-            {
-                Console.WriteLine("Incorrect >^< ! Type any key for the next quesiton");
-                Console.ReadLine();
-            }
-
-            if (i == 4)
-            {
-                DateTime endTime = DateTime.Now;
-                TimeSpan duration = endTime - startTime;
-                Console.WriteLine($"Game over. You spend {duration.TotalSeconds} senconds to finish those questions.\n Your final score is {score}. Press any Key to go back to the menu.");
-                Console.ReadLine();
-            }
-        }
-    }
-
-    internal void Division(string message)
-    {
-        int score = 0;
-
-        DateTime startTime = DateTime.Now;
-
-        for (int i = 0; i<5;i++)
-        {
-            Console.Clear();
-            Console.WriteLine(message);
-
-            int[] divisionNumber = Utilities.GetDivisionNumbers();
-            int firstNumber = divisionNumber[0];
-            int secondNumber = divisionNumber[1];
-
-            Console.WriteLine($"{firstNumber} / {secondNumber}");
-
-            var res = Console.ReadLine() ;
-            res = Utilities.ValidateResult(res);
-
-            if(int.Parse(res)==firstNumber / secondNumber)
+            if (CheckAnswer(operation, firstNumber, secondNumber, int.Parse(res)))
             {
                 Console.WriteLine("Correct! Type any key for the next question");
                 score++;
@@ -216,7 +71,7 @@ internal class GameEngine
             }
             else
             {
-                Console.WriteLine("Incorrect >^< ! Type any key for the next quesiton");
+                Console.WriteLine("Incorrect >^< ! Type any key for the next question");
                 Console.ReadLine();
             }
 
@@ -224,12 +79,35 @@ internal class GameEngine
             {
                 DateTime endTime = DateTime.Now;
                 TimeSpan duration = endTime - startTime;
-                Console.WriteLine($"Game over. You spend {duration.TotalSeconds} senconds to finish those questions.\n Your final score is {score}. Press any Key to go back to the menu.");
+                Console.WriteLine($"Game over. You spent {duration.TotalSeconds} seconds to finish those questions.\nYour final score is {score}. Press any key to go back to the menu.");
                 Console.ReadLine();
             }
         }
 
-        Utilities.AddToHistory(score, GameType.Division);
+        Utilities.AddToHistory(score, (GameType)operation);
+    }
 
+    private string GenerateQuestion(MathOperation operation, int firstNumber, int secondNumber)
+    {
+        return operation switch
+        {
+            MathOperation.Addition => $"{firstNumber} + {secondNumber}",
+            MathOperation.Subtraction => $"{firstNumber} - {secondNumber}",
+            MathOperation.Multiplication => $"{firstNumber} * {secondNumber}",
+            MathOperation.Division => $"{firstNumber} / {secondNumber}",
+            _ => throw new InvalidOperationException("Unknown math operation")
+        };
+    }
+
+    private bool CheckAnswer(MathOperation operation, int firstNumber, int secondNumber, int userAnswer)
+    {
+        return operation switch
+        {
+            MathOperation.Addition => userAnswer == firstNumber + secondNumber,
+            MathOperation.Subtraction => userAnswer == firstNumber - secondNumber,
+            MathOperation.Multiplication => userAnswer == firstNumber * secondNumber,
+            MathOperation.Division => userAnswer == firstNumber / secondNumber,
+            _ => throw new InvalidOperationException("Unknown math operation")
+        };
     }
 }

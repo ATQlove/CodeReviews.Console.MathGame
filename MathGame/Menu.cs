@@ -36,7 +36,7 @@ Q - Quit the program");
             Console.WriteLine("---------------------------------------------------------------------");
 
             var gameSelected = Console.ReadLine();
-
+            
             switch (gameSelected.Trim().ToLower())
             {
                 case "v":
@@ -46,16 +46,16 @@ Q - Quit the program");
                     Utilities.SetDifficulty(); 
                     break;
                 case "a":
-                    engine.Addition("Addition game");
+                    engine.PlayGame(MathOperation.Addition, "Solve the following addition problems!");
                     break;
                 case "s":
-                    engine.Subtraction("Subtraction game");
+                    engine.PlayGame(MathOperation.Subtraction, "Solve the following subtraction problems!");
                     break;
                 case "m":
-                    engine.Multiplication("Multiplication game");
+                    engine.PlayGame(MathOperation.Multiplication, "Solve the following multiplication problems!");
                     break;
                 case "d":
-                    engine.Division("Division game");
+                    engine.PlayGame(MathOperation.Division, "Solve the following division problems!");
                     break;
                 case "q":
                     Console.WriteLine("Goodbye");
