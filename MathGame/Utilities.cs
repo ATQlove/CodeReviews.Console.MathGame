@@ -10,6 +10,52 @@ namespace MathGame;
 
 internal class Utilities
 {
+    internal static int difficulty = 1;
+
+    internal static void SetDifficulty()
+    {
+        Console.Clear();
+        Console.WriteLine("");
+        Console.WriteLine($@"
+Please input the difficulty you want to set:
+1 - Easy
+2 - Medium
+3 - Hard");
+
+        var setConfig = Console.ReadLine();
+        
+        while (true)
+        {
+            setConfig = ValidateResult(setConfig);
+            if (int.Parse(setConfig) == 1)
+            {
+                difficulty = 1;
+                Console.WriteLine("Successfully set difficulty to Easy!");
+                break;
+            }
+            else if (int.Parse(setConfig) == 2)
+            {
+                difficulty = 2;
+                Console.WriteLine("Successfully set difficulty to Medium!");
+                break;
+            }
+            else if (int.Parse(setConfig) == 3)
+            {
+                difficulty = 3;
+                Console.WriteLine("Successfully set difficulty to Hard!");
+                break;
+            }
+            else
+            {
+                Console.WriteLine("You must type 1, 2 or 3. Try again:");
+                setConfig = Console.ReadLine();
+            }      
+        }
+        Console.WriteLine("---------------------------\n");
+        Console.WriteLine("Press any key to return to Main Menu");
+        Console.ReadLine();
+    }
+
     internal static List<Game> games = new List<Game>
     {
         // Fake history
@@ -64,16 +110,29 @@ internal class Utilities
 
     internal static int[] GetDivisionNumbers() { 
         var random = new Random();
-        int firstNumber = random.Next(1, 99);
-        int secondNumber = random.Next(1, 99);
+        int firstNumber;
+        int secondNumber;
+
+        do
+        {
+            if (difficulty == 1)
+            {
+                firstNumber = random.Next(1, 9);
+                secondNumber = random.Next(1, 9);
+            }
+            else if (difficulty == 2)
+            {
+                firstNumber = random.Next(1, 99);
+                secondNumber = random.Next(1, 99);
+            }
+            else
+            {
+                firstNumber = random.Next(1, 999);
+                secondNumber = random.Next(1, 999);
+            }
+        } while (firstNumber % secondNumber != 0);
 
         var res = new int[2];
-
-        while(firstNumber % secondNumber != 0)
-        {
-            firstNumber = random.Next(1,99);
-            secondNumber = random.Next(1, 99);
-        }
 
         res[0] = firstNumber;
         res[1] = secondNumber;

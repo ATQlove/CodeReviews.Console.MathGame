@@ -27,6 +27,7 @@ internal class Menu
             Console.WriteLine($@"
 What game would you like to play today? Choose from the options below:
 V - View Previous Games
+SD - Set Difficulty
 A - Addition
 S - Subtraction
 M - Multiplication
@@ -40,6 +41,9 @@ Q - Quit the program");
             {
                 case "v":
                     Utilities.PrintHistory();
+                    break;
+                case "sd":
+                    Utilities.SetDifficulty(); 
                     break;
                 case "a":
                     engine.Addition("Addition game");
