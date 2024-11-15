@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using MathGame.Model;
+using MathGame.ATQlove.Model;
 
-namespace MathGame;
+namespace MathGame.ATQlove;
 
 public enum MathOperation
 {

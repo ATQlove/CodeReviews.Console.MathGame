@@ -1,5 +1,5 @@
 ﻿// Program.cs
-using MathGame;
+using MathGame.ATQlove;
 using System.Web;
 
 class Program
